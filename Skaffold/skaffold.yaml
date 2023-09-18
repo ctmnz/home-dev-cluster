@@ -1,0 +1,10 @@
+apiVersion: skaffold/v3
+kind: Config
+metadata:
+  name: app
+build:
+  artifacts:
+  - image: app
+    context: ./
+    docker:
+      dockerfile: Dockerfile

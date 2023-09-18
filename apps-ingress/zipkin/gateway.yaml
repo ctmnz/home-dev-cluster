@@ -1,0 +1,37 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: istio-gateway-zipkin
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "zipkin.127.0.0.1.nip.io"
+---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: istio-vs-zipkin
+  namespace: istio-system
+spec:
+  hosts:
+  - "zipkin.127.0.0.1.nip.io"
+  gateways:
+  - istio-gateway-zipkin
+  http:
+  - name: 'zipkin-route'
+    match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        port:
+          number: 9411
+        host: zipkin

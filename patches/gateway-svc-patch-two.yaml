@@ -1,0 +1,18 @@
+spec:
+  type: NodePort
+  ports:
+  - name: status-port
+    port: 15021
+    nodePort: 32000
+  - name: http2
+    port: 80
+    nodePort: 30000
+  - name: https
+    port: 443
+    nodePort: 31000
+  - name: tcp
+    port: 31400
+    nodePort: 31400
+  - name: tls
+    port: 15443
+    nodePort: 31443
