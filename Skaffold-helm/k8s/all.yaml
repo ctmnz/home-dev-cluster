@@ -1,0 +1,137 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: app01
+  labels:
+    name: app01
+    istio-injection: enabled
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: app01-tls-credential
+  namespace: istio-system
+type: kubernetes.io/tls
+stringData:
+  tls.crt: |
+    -----BEGIN CERTIFICATE-----
+    MIIC3DCCAcQCAQAwDQYJKoZIhvcNAQELBQAwJDERMA8GA1UECgwIbmlwIEluYy4x
+    DzANBgNVBAMMBm5pcC5pbzAeFw0yMzA5MjIxNTA0MThaFw0yNDA5MjExNTA0MTha
+    MEQxHzAdBgNVBAMMFmFwcDAxLjEyNy4wLjAuMS5uaXAuaW8xITAfBgNVBAoMGGhv
+    bWVjbHVzdGVyIG9yZ2FuaXphdGlvbjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+    AQoCggEBAJyShZdfID24XY2YnFYZMwoxjnfeOhjDjGViZ9fPVVXytYJxa6jhboQo
+    XmaSSoKnkpPLrLyswZ7u/kZHSc+yh2QSRzJGoClLp6GXsflmZUIuMN3lgaKwAJPT
+    kUc3nG0wTzmAiNJrJgAugl3ipDQOQ/5hdgB0TF7ETGmqpt9P7FP/LKh4QqXFT1cU
+    Ta2zmqLYZOcaSoPB4xgUrkVfse8aDK5UFBKWKhU1O0pUXLDUDekJROPAfj1ERF41
+    o2tQLD/Vigr0BitlZmGoQIcmwDpEsQ7k3k0FEjIVyqMHD05XmlYwxsteb5B8DN0K
+    Zmfp6NHeVVn8/T4lxUgHTTvggQKxpsMCAwEAATANBgkqhkiG9w0BAQsFAAOCAQEA
+    IK4VSTbbNUbvp93kFI3MHN1uUe8DpqhTK6CNSNi2ObNy67OW7+y3OjFyS32LRqYB
+    4h1xLxUk38wsATMy3+U0xskm2q2JKvx5lgdypfBixvtGKv8Xn+JuG85thjqWcFgN
+    /izaqqX2SdGnSa9W0k6eDIykxFlie0C9xmHuNfZihaA+G+20VfemOH7Cne2s48fx
+    /fn8JlfAXy4w4VQb1l0h/Qk2wLyQVYGk1+dOuiQpGUhqnliLPRFn5Y00gY6ftUNA
+    uqwt8SBKcRnhVdD7K5ouWB9LN4xKw7RBojVzLYw+uknnyLgU8V11QBj896vPxaxn
+    Ue7L8KxoaAwi0j0xffV5ZQ==
+    -----END CERTIFICATE-----
+  tls.key: |
+    -----BEGIN PRIVATE KEY-----
+    MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCckoWXXyA9uF2N
+    mJxWGTMKMY533joYw4xlYmfXz1VV8rWCcWuo4W6EKF5mkkqCp5KTy6y8rMGe7v5G
+    R0nPsodkEkcyRqApS6ehl7H5ZmVCLjDd5YGisACT05FHN5xtME85gIjSayYALoJd
+    4qQ0DkP+YXYAdExexExpqqbfT+xT/yyoeEKlxU9XFE2ts5qi2GTnGkqDweMYFK5F
+    X7HvGgyuVBQSlioVNTtKVFyw1A3pCUTjwH49REReNaNrUCw/1YoK9AYrZWZhqECH
+    JsA6RLEO5N5NBRIyFcqjBw9OV5pWMMbLXm+QfAzdCmZn6ejR3lVZ/P0+JcVIB007
+    4IECsabDAgMBAAECggEAPWiaTMxacNqmlqqMZphrlEvrfMgEMUJBBmKaJ+KBrbwL
+    xKWHfC0uk1bh74jhAG2I576yeS2ooxVJVXcQVA3JXE5u7iEVIB00GgTNIOwwOsyz
+    DdS+C3jMQS5xhGUjTQ/tgrgO8bhkpx2WtAv4KxKNSHAhP/xdF64V6jusR1mpbyfA
+    vyZlV0ptDGW/SXuqBsdam2CK87aD40KaYKDBxHQGYGr/lzR3fOLjRkjJD5AJ3au/
+    46WcN1JKMQjMs8p7ehc70mrUbS0Qh22rsrF+svVPUpl531u/o4+Qb7N4LMrTf++S
+    xR4QRAbRYEdcuv1QQGI6RZcZGUanjR594oopAvHXQQKBgQDReHkYVp7reS1Xk5PB
+    1k1JmkPy5Ntudr4L5tNrqRel2WlbxUzIo7oztzPKOhci/tFq3FnTEwIWsK0epIes
+    xqaKdcDrvk517fzdga3nV1hKWJppiMEeNpoO30irmf2KIN03higwgB71CC1X2A9p
+    s4UcqPcNDl6wc4R1Wd58THgUvQKBgQC/Wf6kedvZexNiT2YBunFv46IXW/UeuLLX
+    4S+WS9kFgK9wz2/0/Ycjh4iiy0N6CVDQja44JJ3KhwUTRY5r09QHX+jbPiU5Y/29
+    sHxCacaIQbdopcXqRMshhMKxd0o0bvtAWBY+FkTRU7NqfCcxTDemue7swb9DzTNL
+    4Zvq7O8hfwKBgHpgd97QPGg1k1fm0Bwep2iox6nQKqKOnNk3Ma1kTHyIWBVVX1aY
+    0OAF2Cv9ZCb92DsmIRQ/tqiq73lHhjxaklGyGdOgixY6w9BlQsQ1M0+8E/oz+x87
+    pyWpLTuT65wXNyaJKlGriGp/LH51rAuE5e+ohy0JiChuVKR6rJDR3BXBAoGBALlk
+    cBrbFe54GCe/1Y0HHrDRU1Jeffbt7BjMzFZJ1lJGg7RAxrAOksgRoIhZd17dd7cY
+    DhvHHjoC5x/s3DgMW/lpKyp/44DfKBCI1VtjMD8DrLdvJXn8fPJUtm1KrlJu1G9a
+    6PHukW5eMg6Ri0dwGNsoehxY+v6t6W0zgOTz+hvxAoGAFjcDPUKuCmo9JFlFfzpn
+    AQxlmG12ulUGUB5P+AMf/7rJwdhtbDYsfblAx1GoWbFxoawxh/MInMTXLq+oiOot
+    JkwFM7IKsAUqYZXaA6DQ54x13XQmedl2CgVMdSdC72LZAQX2VSVP8STwspkJbMCs
+    mNLZWkLGBGuE6fWywudi/OI=
+    -----END PRIVATE KEY-----
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello
+  namespace: app01
+spec:
+  selector:
+    matchLabels:
+      app: hello
+  template:
+    metadata:
+      labels:
+        app: hello
+    spec:
+      containers:
+      - name: hello
+        image: app
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app
+  namespace: app01
+spec:
+  ports:
+  - port: 8080
+  type: NodePort
+  selector:
+    app: hello
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: istio-gateway-app01
+  namespace: app01
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 443
+      name: https-app01
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: app01-tls-credential
+    hosts:
+    - "app01.127.0.0.1.nip.io"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: istio-vs-app01
+  namespace: app01
+spec:
+  hosts:
+  - "app01.127.0.0.1.nip.io"
+  gateways:
+  - istio-gateway-app01
+  http:
+  - name: 'app01-route'
+    match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        port:
+          number: 8080
+        host: app
+---
+

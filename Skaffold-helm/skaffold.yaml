@@ -1,0 +1,19 @@
+apiVersion: skaffold/v3
+kind: Config
+metadata:
+  name: app
+build:
+  artifacts:
+  - image: appimage
+    context: ./
+    docker:
+      dockerfile: Dockerfile
+deploy:
+  helm:
+    releases:
+    - name: app-development
+      chartPath: app-helm
+      setValueTemplates:
+        image.name: "appimage"
+        image.tag: "{{.IMAGE_TAG_appimage}}"
+ 
