@@ -5,3 +5,6 @@
 image:
   name: ""
   tag: ""
+serviceAccount:
+  create: true
+  name: "default-service-account" 

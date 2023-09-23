@@ -4,6 +4,9 @@ set -e
 # Create the local kubernetes cluster (using kind)
 kind create cluster --name=home-cluster --config=home-cluster.yaml
 
+kubectl create serviceaccount --namespace kube-system stoinov
+kubectl create clusterrolebinding stoinov-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:stoinov
+
 ### Install the service mesh
 #helm repo add istio https://istio-release.storage.googleapis.com/charts
 #helm install istio-base istio/base -n istio-system --create-namespace

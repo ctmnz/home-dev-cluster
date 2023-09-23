@@ -6,6 +6,14 @@ import (
 	"net/http"
 )
 
+func GetURL(url string) {
+  res, err := http.Get(url)
+  if err != nil {
+    log.Fatal(err)
+  }
+
+
+
 func main() {
 	http.HandleFunc("/", helloHandler)
 
@@ -31,4 +39,12 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
   </body>
   `
 	w.Write([]byte(mypage))
+	requestURL := "https://www.dnes.bg/"
+	res, err := http.Get(requestURL)
+	if err != nil {
+		log.Fatal(err)
+	}
+  GetURL("https://www.gol.bg/")
+  GetURL("https://dir.bg/")
+  GetURL("https://news.ycombinator.com/")
 }

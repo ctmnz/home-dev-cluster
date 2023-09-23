@@ -1,4 +1,4 @@
-apiVersion: skaffold/v3
+apiVersion: skaffold/v4beta2
 kind: Config
 metadata:
   name: app
@@ -13,7 +13,10 @@ deploy:
     releases:
     - name: app-development
       chartPath: app-helm
+      namespace: "app01"
+      createNamespace: true
       setValueTemplates:
         image.name: "appimage"
         image.tag: "{{.IMAGE_TAG_appimage}}"
+        serviceAccountName.name: "app01-service-account"
  
